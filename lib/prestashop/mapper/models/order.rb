@@ -7,7 +7,8 @@ module Prestashop
 
       attr_accessor   :id_customer, :id_address_delivery, :id_address_invoice, :id_cart, 
                       :id_currency, :id_lang, :id_carrier, :id_shop, :id_shop_group, 
-                      :current_state, :valid, :payment, :payment_module, :conversion_rate
+                      :current_state, :valid, :payment, :payment_module, :conversion_rate, 
+                      :total_paid, :total_paid_real, :total_products, :total_products_wt
       attr_accessor   :order_rows
       attr_writer     :id
 
@@ -17,16 +18,20 @@ module Prestashop
         @id_address_delivery  = args[:id_address_delivery]
         @id_address_invoice   = args[:id_address_invoice]
         @id_cart              = args[:id_cart]
-        @id_currency          = args[:id_currency]
+        @id_currency          = args.fetch(:id_currency, 1)
         @id_lang              = args.fetch(:id_lang, 1)
-        @id_carrier           = args[:id_carrier]
+        @id_carrier           = args.fetch(:id_carrier)
         @id_shop              = args.fetch(:id_shop, 1)
         @id_shop_group        = args.fetch(:id_shop_group, 1)
         @current_state        = args.fetch(:current_state)
         @valid                = args.fetch(:valid, 0)
         @payment              = args.fetch(:payment, 'No payment')
-        @payment_module       = args.fetch(:payment_module, 'No payment module')
+        @payment_module       = args.fetch(:payment_module, 'nopaymentmodule')
         @conversion_rate      = args.fetch(:conversion_rate, 1.0)
+        @total_paid           = args.fetch(:total_paid, 0.0)
+        @total_paid_real      = args.fetch(:total_paid_real, 0.0)
+        @total_products       = args.fetch(:total_products, 0.0)
+        @total_products_wt    = args.fetch(:total_products_wt, 0.0)
         @order_rows           = args[:order_rows]
       end
 
@@ -52,6 +57,10 @@ module Prestashop
           payment:  payment,
           'module':   payment_module,
           conversion_rate:  conversion_rate,
+          total_paid: total_paid,
+          total_paid_real: total_paid_real,
+          total_products: total_products,
+          total_products_wt: total_products_wt,
           associations:   {}
         }
         if order_rows_hash
@@ -76,7 +85,7 @@ module Prestashop
           order_row_hash(
             row[:id_product],
             row[:id_product_attribute],
-            row[:quantity],
+            row[:quantity]
           )
         } if order_rows
       end      
