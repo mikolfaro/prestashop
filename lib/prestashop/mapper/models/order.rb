@@ -23,7 +23,7 @@ module Prestashop
         @id_carrier           = args.fetch(:id_carrier)
         @id_shop              = args.fetch(:id_shop, 1)
         @id_shop_group        = args.fetch(:id_shop_group, 1)
-        @current_state        = args.fetch(:current_state)
+        @current_state        = args.fetch(:current_state, 3)
         @valid                = args.fetch(:valid, 0)
         @payment              = args.fetch(:payment, 'No payment')
         @payment_module       = args.fetch(:payment_module, 'nopaymentmodule')
