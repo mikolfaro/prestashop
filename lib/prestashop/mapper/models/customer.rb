@@ -20,11 +20,6 @@ module Prestashop
         @active           = args.fetch(:active, 1)
       end
 
-      def id
-        @id ||= self.class.find_by 'filter[email]' => email
-      end
-      alias :find? :id
-
       def hash
         customer = {
           firstname:        firstname,
