@@ -40,10 +40,6 @@ module Prestashop
           alias:        address_alias
         }
       end
-
-      def update options = {}
-        self.class.update(id, options) unless id.blank?
-      end
     end
   end
 end
