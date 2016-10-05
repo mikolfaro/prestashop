@@ -24,11 +24,6 @@ module Prestashop
         @address_alias = args.fetch(:address_alias)
       end
 
-      def id
-        @id ||= self.class.find_by 'filter[alias]' => address_alias
-      end
-      alias :find? :id
-
       def hash
         address = {
           id_customer:  id_customer,
@@ -44,6 +39,10 @@ module Prestashop
           postcode:     postcode,
           alias:        address_alias
         }
+      end
+
+      def update options = {}
+        self.class.update(id, options) unless id.blank?
       end
     end
   end

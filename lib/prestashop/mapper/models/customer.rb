@@ -32,6 +32,15 @@ module Prestashop
           active:           active
         }
       end
+
+      def id
+        @id ||= self.class.find_by 'filter[email]' => email
+      end
+      alias :find? :id
+
+      def update options = {}
+        self.class.update(id, options) if find?
+      end
     end
   end
 end
