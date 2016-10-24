@@ -57,10 +57,18 @@ module Prestashop
         } if cart_rows
       end
 
-      # Find or create supplier from hash
+      # Find or create cart from hash
       def find_or_create
         cart = self.class.find_by 'filter[id]' => id
         cart ? cart : create[:id]
+      end
+
+      class << self
+        def last_non_ordered(id_customer)
+          cart = self.where 'filter[id_customer]' => id_customer, 'sort' => '[id_DESC]', 'limit' => 1, display: 'full'
+          order = Order.where('filter[id_cart]' => cart.first[:id]) unless cart.blank?
+          cart.first if order.blank?
+        end
       end
     end
   end
