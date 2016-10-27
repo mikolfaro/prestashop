@@ -64,10 +64,21 @@ module Prestashop
       end
 
       class << self
-        def last_non_ordered(id_customer)
+        def customer_last_non_ordered(id_customer)
           cart = self.where 'filter[id_customer]' => id_customer, 'sort' => '[id_DESC]', 'limit' => 1, display: 'full'
-          order = Order.where('filter[id_cart]' => cart.first[:id]) unless cart.blank?
-          cart.first if order.blank?
+          non_ordered cart.first
+        end
+
+        def find_non_ordered(id_cart)
+          cart = self.find_by 'filter[id]' => id_cart, display: 'full'
+          non_ordered cart
+        end
+
+        private 
+
+        def non_ordered(cart)
+          order = Order.where('filter[id_cart]' => cart[:id]) unless cart.blank?
+          cart if order.blank?
         end
       end
     end
