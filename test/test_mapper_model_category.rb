@@ -75,7 +75,7 @@ module Prestashop
         cache = [{ id_parent: 1, name: { language: { val: 'Apple',  attr: { id: 2 }}}} ]
         Client.stubs(:categories_cache).returns(cache)
         Category.find_in_cache(1, 'Apple', 2).must_equal cache.first
-        Category.find_in_cache(2, 'Apple', 2).must_equal nil
+        Category.find_in_cache(2, 'Apple', 2).must_be_nil
       end
 
       it "should cache by calling all" do 

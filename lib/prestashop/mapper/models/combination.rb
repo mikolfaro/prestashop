@@ -4,9 +4,10 @@ module Prestashop
     class Combination < Model
       resource :combinations
       model :combination
-    
+
+      attr_writer :id
       attr_accessor :id_lang, :id_product_options, :id_images
-      attr_accessor :id, :id_product, :location, :ean13, :upc, :quantity, :reference, :supplier_reference, :wholesale_price,
+      attr_accessor :id_product, :location, :ean13, :upc, :quantity, :reference, :supplier_reference, :wholesale_price,
                     :price, :ecotax, :weight, :unit_price_impact, :minimal_quantity, :default_on, :available_date
 
       def initialize args = {}

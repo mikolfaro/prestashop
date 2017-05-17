@@ -98,7 +98,7 @@ module Prestashop
         if node.element?
           result_hash = {}
           if node.attributes != {}
-             if node.attributes
+            if node.attributes
               node.attributes.each do |key, value|
                 unless value.name == 'href'
                   result_hash[:attr] = {} unless result_hash[:attr]

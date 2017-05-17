@@ -12,13 +12,15 @@ module Prestashop
       before do
         Car.stubs(:resource).returns(:cars)
         Car.stubs(:model).returns(:car)
-        stub_request(:get, 'http://123:@localhost.com/api/')
+        stub_request(:get, 'http://localhost.com/api/').
+            with(basic_auth: ['123', ''])
         connection = Api::Connection.new('123', 'localhost.com')
         Client.stubs(:connection).returns(connection)
       end
   
       it "should determinate if exist" do
-        stub_request(:head, 'http://123:@localhost.com/api/cars/1')
+        stub_request(:head, 'http://localhost.com/api/cars/1').
+            with(basic_auth: ['123', ''])
         Car.exists?(1).must_equal true
       end      
 
@@ -34,7 +36,9 @@ module Prestashop
         EOT
 
         result = { id: 1, name: 'BMW' }
-        stub_request(:get, 'http://123:@localhost.com/api/cars/1').to_return(body: body)
+        stub_request(:get, 'http://localhost.com/api/cars/1').
+            with(basic_auth: ['123', '']).
+            to_return(body: body)
         Car.find(1).must_equal result
       end
 
@@ -50,7 +54,9 @@ module Prestashop
         </prestashop>
         EOT
 
-        stub_request(:get, 'http://123:@localhost.com/api/cars').to_return(body: body)        
+        stub_request(:get, 'http://localhost.com/api/cars').
+            with(basic_auth: ['123', '']).
+            to_return(body: body)
         Car.all.must_equal([1,2,3])
       end
 
@@ -80,7 +86,9 @@ module Prestashop
           }
         ]
 
-        stub_request(:get, 'http://123:@localhost.com/api/cars?display=%5Bid_supplier,name%5D').to_return(body: body)        
+        stub_request(:get, 'http://localhost.com/api/cars?display=%5Bid_supplier,name%5D').
+            with(basic_auth: ['123', '']).
+            to_return(body: body)
         Car.all(display: '[id_supplier,name]').must_equal(result)
       end
 
@@ -95,12 +103,15 @@ module Prestashop
         </prestashop>
         EOT
 
-        stub_request(:get, 'http://123:@localhost.com/api/cars?filter%5Bid_supplier%5D=1').to_return(body: body)        
+        stub_request(:get, 'http://localhost.com/api/cars?filter%5Bid_supplier%5D=1').
+            with(basic_auth: ['123', '']).
+            to_return(body: body)
         Car.where('filter[id_supplier]' => '1').must_equal([1,2])
       end
 
       it "should destroy by id" do 
-        stub_request(:delete, 'http://123:@localhost.com/api/cars/1')
+        stub_request(:delete, 'http://localhost.com/api/cars/1').
+            with(basic_auth: ['123', ''])
         Car.destroy(1).must_equal(true)
       end
 
@@ -119,8 +130,12 @@ module Prestashop
         request = '<prestashop xmlns:xlink="http://www.w3.org/1999/xlink"><car><id><![CDATA[1]]></id><name><![CDATA[BMW]]></name></car></prestashop>'
         body = '<prestashop xmlns:xlink="http://www.w3.org/1999/xlink"><car><id><![CDATA[1]]></id><name><![CDATA[Audi]]></name></car></prestashop>'
 
-        stub_request(:put, 'http://123:@localhost.com/api/cars/1').with(body: body).to_return(body: body)        
-        stub_request(:get, 'http://123:@localhost.com/api/cars/1').to_return(body: request)        
+        stub_request(:put, 'http://localhost.com/api/cars/1').
+            with(body: body, basic_auth: ['123', '']).
+            to_return(body: body)
+        stub_request(:get, 'http://localhost.com/api/cars/1').
+            with(basic_auth: ['123', '']).
+            to_return(body: request)
         result = { id: 1, name: 'Audi' }
         Car.update(1, name: 'Audi').must_equal result
       end
@@ -143,7 +158,9 @@ module Prestashop
         hash = { name: 'BMW 7', manufacturer: 'BMW' }
         payload = '<prestashop xmlns:xlink="http://www.w3.org/1999/xlink"><car><name><![CDATA[BMW 7]]></name><manufacturer><![CDATA[BMW]]></manufacturer></car></prestashop>'
         result = '<prestashop xmlns:xlink="http://www.w3.org/1999/xlink"><car><id><![CDATA[1]]></id><name><![CDATA[BMW 7]]></name><manufacturer><![CDATA[BMW]]></manufacturer></car></prestashop>'
-        stub_request(:post, 'http://123:@localhost.com/api/cars').with(body: payload).to_return(body: result)        
+        stub_request(:post, 'http://localhost.com/api/cars').
+            with(body: payload, basic_auth: ['123', '']).
+            to_return(body: result)
 
         car = Car.new
         car.stubs(:hash).returns(hash)
