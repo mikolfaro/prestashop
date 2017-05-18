@@ -1,6 +1,9 @@
 # Prestashop
 
-[![Build Status](https://travis-ci.org/mikolfaro/prestashop.svg)](https://travis-ci.org/mikolfaro/prestashop)  [![Code Climate](https://codeclimate.com/github/mikolfaro/prestashop/badges/gpa.svg)](https://codeclimate.com/mikolfaro/prestashop/prestashop) [![Test coverage](https://codeclimate.com/github/mikolfaro/prestashop/badges/coverage.svg)](https://codeclimate.com/mikolfaro/prestashop/prestashop) [![Dependencies](https://gemnasium.com/mikolfaro/prestashop.svg)](https://gemnasium.com/mikolfaro/prestashop)
+[![Build Status](https://travis-ci.org/mikolfaro/prestashop.svg)](https://travis-ci.org/mikolfaro/prestashop) 
+[![Code Climate](https://codeclimate.com/github/mikolfaro/prestashop/badges/gpa.svg)](https://codeclimate.com/github/mikolfaro/prestashop)
+[![Test coverage](https://codeclimate.com/github/mikolfaro/prestashop/badges/coverage.svg)](https://codeclimate.com/github/mikolfaro/prestashop)
+[![Dependencies](https://gemnasium.com/mikolfaro/prestashop.svg)](https://gemnasium.com/mikolfaro/prestashop)
 
 Prestashop API for Ruby
 
