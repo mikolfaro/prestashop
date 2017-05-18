@@ -5,29 +5,29 @@ module Prestashop
     describe Manufacturer do
       let(:manufacturer) { Manufacturer.new(attributes_for(:manufacturer_basic)) }
 
-      before do 
-        xml = <<-EOT
-        <?xml version="1.0" encoding="UTF-8"?>
-        <prestashop xmlns:xlink="http://www.w3.org/1999/xlink">
-          <manufacturer>
-            <id><![CDATA[1]]></id>
-            <active><![CDATA[1]]></active>
-            <link_rewrite not_filterable="true"><![CDATA[apple]]></link_rewrite>
-            <name><![CDATA[Apple]]></name>
-            <date_add><![CDATA[2014-01-21 21:41:28]]></date_add>
-            <date_upd><![CDATA[2014-01-21 21:41:28]]></date_upd>
-            <description><language id="2" xlink:href="http://dev.demo.storio.cz/api/languages/2"><![CDATA[]]></language></description>
-            <short_description><language id="2" xlink:href="http://dev.demo.storio.cz/api/languages/2"><![CDATA[]]></language></short_description>
-            <meta_title><language id="2" xlink:href="http://dev.demo.storio.cz/api/languages/2"><![CDATA[Apple]]></language></meta_title>
-            <meta_description><language id="2" xlink:href="http://dev.demo.storio.cz/api/languages/2"><![CDATA[]]></language></meta_description>
-            <meta_keywords><language id="2" xlink:href="http://dev.demo.storio.cz/api/languages/2"><![CDATA[Apple]]></language></meta_keywords>
-            <associations>
-              <addresses node_type="address"/>
-            </associations>
-          </manufacturer>
-        </prestashop>
-        EOT
-      end
+      # before do
+      #   xml = <<-EOT
+      #   <?xml version="1.0" encoding="UTF-8"?>
+      #   <prestashop xmlns:xlink="http://www.w3.org/1999/xlink">
+      #     <manufacturer>
+      #       <id><![CDATA[1]]></id>
+      #       <active><![CDATA[1]]></active>
+      #       <link_rewrite not_filterable="true"><![CDATA[apple]]></link_rewrite>
+      #       <name><![CDATA[Apple]]></name>
+      #       <date_add><![CDATA[2014-01-21 21:41:28]]></date_add>
+      #       <date_upd><![CDATA[2014-01-21 21:41:28]]></date_upd>
+      #       <description><language id="2" xlink:href="http://dev.demo.storio.cz/api/languages/2"><![CDATA[]]></language></description>
+      #       <short_description><language id="2" xlink:href="http://dev.demo.storio.cz/api/languages/2"><![CDATA[]]></language></short_description>
+      #       <meta_title><language id="2" xlink:href="http://dev.demo.storio.cz/api/languages/2"><![CDATA[Apple]]></language></meta_title>
+      #       <meta_description><language id="2" xlink:href="http://dev.demo.storio.cz/api/languages/2"><![CDATA[]]></language></meta_description>
+      #       <meta_keywords><language id="2" xlink:href="http://dev.demo.storio.cz/api/languages/2"><![CDATA[Apple]]></language></meta_keywords>
+      #       <associations>
+      #         <addresses node_type="address"/>
+      #       </associations>
+      #     </manufacturer>
+      #   </prestashop>
+      #   EOT
+      # end
 
       it "must have valid hash" do
         result = { active: 1,  name: "Apple",  description: nil,  short_description: nil,  meta_title: { language: { val: "Apple",  attr: { id: 2}}},  meta_description: nil,  meta_keywords: { language: { val: "Apple",  attr: { id: 2}}}}

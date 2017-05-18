@@ -4,20 +4,20 @@ module Prestashop
   module Mapper
     describe ProductFeature do
       let(:feature) { ProductFeature.new(attributes_for(:product_feature_basic)) }
-      before do 
-        xml = <<-EOT
-        <?xml version="1.0" encoding="UTF-8"?>
-        <prestashop xmlns:xlink="http://www.w3.org/1999/xlink">
-          <product_features>
-            <product_feature>
-              <id><![CDATA[1]]></id>
-              <position><![CDATA[0]]></position>
-              <name><language id="2" xlink:href="http://dev.demo.storio.cz/api/languages/2"><![CDATA[CPU]]></language></name>
-            </product_feature>
-          </product_features>
-        </prestashop>
-        EOT
-      end
+      # before do
+      #   xml = <<-EOT
+      #   <?xml version="1.0" encoding="UTF-8"?>
+      #   <prestashop xmlns:xlink="http://www.w3.org/1999/xlink">
+      #     <product_features>
+      #       <product_feature>
+      #         <id><![CDATA[1]]></id>
+      #         <position><![CDATA[0]]></position>
+      #         <name><language id="2" xlink:href="http://dev.demo.storio.cz/api/languages/2"><![CDATA[CPU]]></language></name>
+      #       </product_feature>
+      #     </product_features>
+      #   </prestashop>
+      #   EOT
+      # end
 
       it "must have valid hash" do
         result = { name: { language: { val: 'CPU',  attr: { id: 2 }}}}
