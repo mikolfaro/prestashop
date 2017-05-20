@@ -1,22 +1,26 @@
+# frozen_string_literal: true
+
 require 'faraday'
 require 'mini_magick'
 require 'tempfile'
 
 using Prestashop::Api::Refinement
+
 module Prestashop
   module Api
     class Connection
       attr_reader :api_key, :api_url
 
-      # Create new connection. Raise error, when is not possible validate connection from any reason
+      # Create new connection. Raise error, when is not possible
+      # validate connection from any reason
       #
       #   Prestashop::Api::Connection.new 'TOKEN342', 'mystore.com'
       #
-      def initialize api_key, api_url
+      def initialize(api_key, api_url)
         @api_key = api_key
         self.api_url = api_url
 
-        raise InvalidCredentials unless self.test
+        raise InvalidCredentials unless test
       end
 
       # Convert url to  suitable for Prestashop API
@@ -31,8 +35,9 @@ module Prestashop
         @api_url = url
       end
 
-      # Create connection based on connection instance, returns +Faraday::Connection+
-      # which can be usedo for API call
+
+      # Create connection based on connection instance, returns
+      # +Faraday::Connection+ which can be usedo for API call
       #
       def connection
         Faraday.new do |builder|

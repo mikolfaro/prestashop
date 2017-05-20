@@ -29,8 +29,8 @@ module Prestashop
       end
 
       def uploader source
-        if source =~ URI::regexp
-          source = URI::encode(source)
+        if source =~ uri_parser.regexp[:ABS_URI]
+          source = uri_parser.escape(source)
           self.file = MiniMagick::Image.open(source)
           file.format 'png' unless %w(jpg jpeg png gif).include?(file[:format])
           result = Client.upload 'images', resource, id_resource, payload, file
@@ -46,6 +46,12 @@ module Prestashop
 
       def payload
         { image: Faraday::UploadIO.new(file.path, 'image') }
+      end
+
+      private
+
+      def uri_parser
+        @uri_parser ||= URI::Parser.new
       end
     end
   end

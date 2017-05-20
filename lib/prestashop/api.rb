@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'prestashop/api/refinement'
 require 'prestashop/api/error'
 require 'prestashop/api/converter'

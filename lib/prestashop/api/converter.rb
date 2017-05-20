@@ -8,7 +8,7 @@ module Prestashop
       #
       #   Converter.build :customers, :customer, { name: 'Steve' }  # => <prestashop><customers><customer>....</customer></customers></prestashop>
       #
-      def self.build resource, model, hash
+      def self.build(_resource, model, hash)
         Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |ml|
           ml.prestashop("xmlns:xlink" => "http://www.w3.org/1999/xlink") {
             ml.send(model.to_s) {
@@ -48,7 +48,7 @@ module Prestashop
       # * +ml+ - Current XML
       # * +source+ - Source, which will be converted into the XML
       #
-      def self.build_nodes ml, source, mkey = nil
+      def self.build_nodes(ml, source, _mkey = nil)
         unless source[:attr] and source[:val]
           source.each do |key, value| 
             if value.kind_of? Hash
@@ -98,8 +98,8 @@ module Prestashop
         if node.element?
           result_hash = {}
           if node.attributes != {}
-             if node.attributes
-              node.attributes.each do |key, value|
+            if node.attributes
+              node.attributes.each do |_key, value|
                 unless value.name == 'href'
                   result_hash[:attr] = {} unless result_hash[:attr]
                   result_hash[:attr][value.name.to_sym] = prepare(value.value)

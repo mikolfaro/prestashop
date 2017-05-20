@@ -4,29 +4,29 @@ module Prestashop
   module Mapper
     describe ProductOptionValue do
       let(:option_value) { ProductOptionValue.new(attributes_for(:product_option_value)) }
-      before do 
-        xml = <<-EOT
-        <?xml version="1.0" encoding="UTF-8"?>
-        <prestashop xmlns:xlink="http://www.w3.org/1999/xlink">
-          <product_option_values>
-            <product_option_value>
-              <id><![CDATA[1]]></id>
-              <id_attribute_group xlink:href="http://dev.demo.storio.cz/api/product_options/1"><![CDATA[1]]></id_attribute_group>
-              <color><![CDATA[0]]></color>
-              <position><![CDATA[0]]></position>
-              <name><language id="2" xlink:href="http://dev.demo.storio.cz/api/languages/2"><![CDATA[16GB]]></language></name>
-            </product_option_value>
-            <product_option_value>
-              <id><![CDATA[2]]></id>
-              <id_attribute_group xlink:href="http://dev.demo.storio.cz/api/product_options/1"><![CDATA[2]]></id_attribute_group>
-              <color><![CDATA[0]]></color>
-              <position><![CDATA[1]]></position>
-              <name><language id="2" xlink:href="http://dev.demo.storio.cz/api/languages/2"><![CDATA[White]]></language></name>
-            </product_option_value>
-          </product_option_values>
-        </prestashop>
-        EOT
-      end
+      # before do
+      #   xml = <<-EOT
+      #   <?xml version="1.0" encoding="UTF-8"?>
+      #   <prestashop xmlns:xlink="http://www.w3.org/1999/xlink">
+      #     <product_option_values>
+      #       <product_option_value>
+      #         <id><![CDATA[1]]></id>
+      #         <id_attribute_group xlink:href="http://dev.demo.storio.cz/api/product_options/1"><![CDATA[1]]></id_attribute_group>
+      #         <color><![CDATA[0]]></color>
+      #         <position><![CDATA[0]]></position>
+      #         <name><language id="2" xlink:href="http://dev.demo.storio.cz/api/languages/2"><![CDATA[16GB]]></language></name>
+      #       </product_option_value>
+      #       <product_option_value>
+      #         <id><![CDATA[2]]></id>
+      #         <id_attribute_group xlink:href="http://dev.demo.storio.cz/api/product_options/1"><![CDATA[2]]></id_attribute_group>
+      #         <color><![CDATA[0]]></color>
+      #         <position><![CDATA[1]]></position>
+      #         <name><language id="2" xlink:href="http://dev.demo.storio.cz/api/languages/2"><![CDATA[White]]></language></name>
+      #       </product_option_value>
+      #     </product_option_values>
+      #   </prestashop>
+      #   EOT
+      # end
 
       it "must have valid hash" do
         result = { name: { language: { val: '16GB',  attr: { id: 2 }}},  id_attribute_group: 1,  color: 0}

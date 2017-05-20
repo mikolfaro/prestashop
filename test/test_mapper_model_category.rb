@@ -5,39 +5,39 @@ module Prestashop
     describe Category do
       let(:category) { Category.new(attributes_for(:category)) }
       let(:id_lang) { 2 }
-      before do
-        xml = <<-EOF
-        <?xml version="1.0" encoding="UTF-8"?>
-        <prestashop xmlns:xlink="http://www.w3.org/1999/xlink">
-          <category>
-            <id><![CDATA[1]]></id>
-            <id_parent><![CDATA[0]]></id_parent>
-            <level_depth><![CDATA[0]]></level_depth>
-            <nb_products_recursive not_filterable="true"><![CDATA[7]]></nb_products_recursive>
-            <active><![CDATA[1]]></active>
-            <id_shop_default><![CDATA[1]]></id_shop_default>
-            <is_root_category><![CDATA[0]]></is_root_category>
-            <position><![CDATA[1]]></position>
-            <date_add><![CDATA[2014-01-22 01:05:06]]></date_add>
-            <date_upd><![CDATA[2014-01-22 01:05:06]]></date_upd>
-            <name><language id="1" xlink:href="http://localhost.com/api/languages/1"><![CDATA[Root]]></language><language id="2" xlink:href="http://localhost.com/api/languages/2"><![CDATA[Root]]></language></name>
-            <link_rewrite><language id="1" xlink:href="http://localhost.com/api/languages/1"><![CDATA[root]]></language><language id="2" xlink:href="http://localhost.com/api/languages/2"><![CDATA[root]]></language></link_rewrite>
-            <description><language id="1" xlink:href="http://localhost.com/api/languages/1"><![CDATA[]]></language><language id="2" xlink:href="http://localhost.com/api/languages/2"><![CDATA[]]></language></description>
-            <meta_title><language id="1" xlink:href="http://localhost.com/api/languages/1"><![CDATA[]]></language><language id="2" xlink:href="http://localhost.com/api/languages/2"><![CDATA[]]></language></meta_title>
-            <meta_description><language id="1" xlink:href="http://localhost.com/api/languages/1"><![CDATA[]]></language><language id="2" xlink:href="http://localhost.com/api/languages/2"><![CDATA[]]></language></meta_description>
-            <meta_keywords><language id="1" xlink:href="http://localhost.com/api/languages/1"><![CDATA[]]></language><language id="2" xlink:href="http://localhost.com/api/languages/2"><![CDATA[]]></language></meta_keywords>
-          <associations>
-            <categories node_type="category">
-              <category xlink:href="http://localhost.com/api/categories/2">
-              <id><![CDATA[2]]></id>
-              </category>
-            </categories>
-            <products node_type="product"/>
-            </associations>
-          </category>
-        </prestashop>
-        EOF
-      end
+      # before do
+      #   xml = <<-EOF
+      #   <?xml version="1.0" encoding="UTF-8"?>
+      #   <prestashop xmlns:xlink="http://www.w3.org/1999/xlink">
+      #     <category>
+      #       <id><![CDATA[1]]></id>
+      #       <id_parent><![CDATA[0]]></id_parent>
+      #       <level_depth><![CDATA[0]]></level_depth>
+      #       <nb_products_recursive not_filterable="true"><![CDATA[7]]></nb_products_recursive>
+      #       <active><![CDATA[1]]></active>
+      #       <id_shop_default><![CDATA[1]]></id_shop_default>
+      #       <is_root_category><![CDATA[0]]></is_root_category>
+      #       <position><![CDATA[1]]></position>
+      #       <date_add><![CDATA[2014-01-22 01:05:06]]></date_add>
+      #       <date_upd><![CDATA[2014-01-22 01:05:06]]></date_upd>
+      #       <name><language id="1" xlink:href="http://localhost.com/api/languages/1"><![CDATA[Root]]></language><language id="2" xlink:href="http://localhost.com/api/languages/2"><![CDATA[Root]]></language></name>
+      #       <link_rewrite><language id="1" xlink:href="http://localhost.com/api/languages/1"><![CDATA[root]]></language><language id="2" xlink:href="http://localhost.com/api/languages/2"><![CDATA[root]]></language></link_rewrite>
+      #       <description><language id="1" xlink:href="http://localhost.com/api/languages/1"><![CDATA[]]></language><language id="2" xlink:href="http://localhost.com/api/languages/2"><![CDATA[]]></language></description>
+      #       <meta_title><language id="1" xlink:href="http://localhost.com/api/languages/1"><![CDATA[]]></language><language id="2" xlink:href="http://localhost.com/api/languages/2"><![CDATA[]]></language></meta_title>
+      #       <meta_description><language id="1" xlink:href="http://localhost.com/api/languages/1"><![CDATA[]]></language><language id="2" xlink:href="http://localhost.com/api/languages/2"><![CDATA[]]></language></meta_description>
+      #       <meta_keywords><language id="1" xlink:href="http://localhost.com/api/languages/1"><![CDATA[]]></language><language id="2" xlink:href="http://localhost.com/api/languages/2"><![CDATA[]]></language></meta_keywords>
+      #     <associations>
+      #       <categories node_type="category">
+      #         <category xlink:href="http://localhost.com/api/categories/2">
+      #         <id><![CDATA[2]]></id>
+      #         </category>
+      #       </categories>
+      #       <products node_type="product"/>
+      #       </associations>
+      #     </category>
+      #   </prestashop>
+      #   EOF
+      # end
 
       it "should have valid name" do 
         category.name = ';#Apple<>'
@@ -75,7 +75,7 @@ module Prestashop
         cache = [{ id_parent: 1, name: { language: { val: 'Apple',  attr: { id: 2 }}}} ]
         Client.stubs(:categories_cache).returns(cache)
         Category.find_in_cache(1, 'Apple', 2).must_equal cache.first
-        Category.find_in_cache(2, 'Apple', 2).must_equal nil
+        Category.find_in_cache(2, 'Apple', 2).must_be_nil
       end
 
       it "should cache by calling all" do 

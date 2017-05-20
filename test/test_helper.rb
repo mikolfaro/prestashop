@@ -1,5 +1,4 @@
-require "codeclimate-test-reporter"
-CodeClimate::TestReporter.start
+require "simplecov"
 SimpleCov.start
 
 require 'minitest/autorun'
@@ -7,6 +6,7 @@ require 'minitest/pride'
 require 'webmock/minitest'
 require 'mocha/setup'
 require 'factory_girl'
+require 'pry'
 
 require 'prestashop'
 

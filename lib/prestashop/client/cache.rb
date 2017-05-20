@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 module Prestashop
-  module Client    
+  module Client
     class Cache
       def manufacturers_cache
         @manufacturers_cache ||= Mapper::Manufacturer.cache
@@ -24,7 +26,7 @@ module Prestashop
       def clear_features_cache
         @features_cache = nil
       end
-      
+
       def feature_values_cache
         @feature_values_cache ||= Mapper::ProductFeatureValue.cache
       end

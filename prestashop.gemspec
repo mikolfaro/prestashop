@@ -29,5 +29,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "mocha"
   spec.add_development_dependency "simplecov"
   spec.add_development_dependency "minitest"
-  spec.add_development_dependency "codeclimate-test-reporter"
+  spec.add_development_dependency "pry"
 end

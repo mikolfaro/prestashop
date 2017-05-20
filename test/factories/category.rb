@@ -1,8 +1,9 @@
-FactoryGirl.define do
+# frozen_string_literal: true
 
+FactoryGirl.define do
   factory :category, class: Prestashop::Mapper::Category do
     id_parent 2
-    id_shop_default 1 
+    id_shop_default 1
     active 1
     name 'Apple'
     description 'Apple category'

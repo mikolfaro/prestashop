@@ -4,21 +4,21 @@ module Prestashop
   module Mapper
     describe ProductFeatureValue do
       let(:feature_value) { ProductFeatureValue.new(attributes_for(:product_feature_value_basic)) }
-      before do 
-        xml = <<-EOT
-        <?xml version="1.0" encoding="UTF-8"?>
-        <prestashop xmlns:xlink="http://www.w3.org/1999/xlink">
-          <product_feature_values>
-            <product_feature_value>
-              <id><![CDATA[1]]></id>
-              <id_feature xlink:href="http://dev.demo.storio.cz/api/product_features/1"><![CDATA[1]]></id_feature>
-              <custom><![CDATA[0]]></custom>
-              <value><language id="2" xlink:href="http://dev.demo.storio.cz/api/languages/2"><![CDATA[Intel]]></language></value>
-            </product_feature_value>
-          </product_feature_values>
-        </prestashop>
-        EOT
-      end
+      # before do
+      #   xml = <<-EOT
+      #   <?xml version="1.0" encoding="UTF-8"?>
+      #   <prestashop xmlns:xlink="http://www.w3.org/1999/xlink">
+      #     <product_feature_values>
+      #       <product_feature_value>
+      #         <id><![CDATA[1]]></id>
+      #         <id_feature xlink:href="http://dev.demo.storio.cz/api/product_features/1"><![CDATA[1]]></id_feature>
+      #         <custom><![CDATA[0]]></custom>
+      #         <value><language id="2" xlink:href="http://dev.demo.storio.cz/api/languages/2"><![CDATA[Intel]]></language></value>
+      #       </product_feature_value>
+      #     </product_feature_values>
+      #   </prestashop>
+      #   EOT
+      # end
 
       it "must have valid hash" do
         result = { id_feature: 1,  custom: 0,  value: { language: { val: "Intel",  attr: { id: 2}}}}

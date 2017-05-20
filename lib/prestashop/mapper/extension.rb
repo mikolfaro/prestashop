@@ -40,14 +40,14 @@ module Prestashop
         #   Car.all(display: ['name']) # => [{ name: { language: { attr: { id: 2, href: 'http://localhost.com/api/languages/2'}, val: 'BMW 7'} }]
         #
         def all options = {}
-          result = if options[:display] 
-            Client.read self.resource, nil, display: options[:display]
-          else
-            Client.read self.resource
-          end
+          result = if options[:display]
+                     Client.read self.resource, nil, display: options[:display]
+                   else
+                     Client.read self.resource
+                   end
           handle_result result, options
         end
-        
+
         # Get results by class resource and given conditionals
         #
         #   Car.where('filter[id_supplier' => 1) # => [1, 2]
@@ -106,7 +106,7 @@ module Prestashop
               end
             else
               if result[self.resource].kind_of?(Hash) and result[self.resource][self.model]
-                [objects = result[self.resource][self.model]]
+                objects = result[self.resource][self.model]
                 objects.kind_of?(Array) ? objects.map{ |o| o[:attr][:id] } : [ objects[:attr][:id] ]
               else
                 nil
