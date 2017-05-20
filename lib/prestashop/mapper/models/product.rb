@@ -110,7 +110,7 @@ module Prestashop
       end
 
       def hash
-        product = { 
+        product = {
           id_supplier:          id_supplier,
           id_manufacturer:      id_manufacturer,
           id_category_default:  id_category_default,
@@ -184,6 +184,7 @@ module Prestashop
           product.delete(:quantity)
           product.delete(:type)
           product.delete(:associations)
+          product.delete(:id_default_image)
           product
         end
 

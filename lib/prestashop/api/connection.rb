@@ -26,14 +26,15 @@ module Prestashop
       # Convert url to  suitable for Prestashop API
       #
       #   @connection.api_url = 'mystore.com' # => http://mystore.com/api/
-      # 
-      def api_url=(url)
-        url.gsub!(/^(http|https):\/\//,'')
+      #
+      def api_url= origin_url
+        url = origin_url.gsub(/^(http|https):\/\//,'')
         url = 'http://' + url
         url << '/' unless url.end_with? '/'
         url << 'api/' unless url.end_with? 'api/'
         @api_url = url
       end
+
 
       # Create connection based on connection instance, returns
       # +Faraday::Connection+ which can be usedo for API call
@@ -44,7 +45,7 @@ module Prestashop
           builder.request     :multipart
           builder.request     :url_encoded
           builder.request     :retry, 5
-          # builder.response    :logger
+          builder.response    :logger if ENV['DEBUG']
           builder.adapter     :net_http
           builder.basic_auth  api_key, ''
         end
@@ -78,11 +79,11 @@ module Prestashop
       def head resource, id = nil
         raise ArgumentError, "resource: #{resource} must be string or symbol" unless resource.kind_of?(String) or resource.kind_of?(Symbol)
         raise ArgumentError, "id: #{id} must be integer or nil" unless id.to_i.kind_of?(Integer) or id == nil
-        
+
         request_path = path(resource, id)
         response = connection.head request_path
         if response.success?
-          true # response.body 
+          true # response.body
         else
           raise RequestFailed.new(response), response.body.parse_error
         end
@@ -116,11 +117,11 @@ module Prestashop
           if white_list.include? name.to_s.split('[').first
             params[name.to_sym] = value
           end
-        end 
+        end
 
         request_path = path(resource, id)
         response = connection.get request_path, params
-        if response.success? 
+        if response.success?
           response.body.parse
         else
           raise RequestFailed.new(response), response.body.parse_error
@@ -140,7 +141,7 @@ module Prestashop
 
         request_path = path(resource)
         response = connection.post request_path, payload
-        if response.success? 
+        if response.success?
           response.body.parse
         else
           raise RequestFailed.new(response), "#{response.body.parse_error}. XML SENT: #{payload}"
@@ -202,7 +203,7 @@ module Prestashop
       # @param  id [ID of uploaded item]
       # @param  payload [Attachement in hash with file path]
       # @param  file [Original file]
-      # 
+      #
       def upload type, resource, id, payload, file
         raise ArgumentError, "type: #{type} must be string or symbol" unless resource.kind_of?(String) or resource.kind_of?(Symbol)
         raise ArgumentError, "resource: #{resource} must be string or symbol" unless resource.kind_of?(String) or resource.kind_of?(Symbol)
